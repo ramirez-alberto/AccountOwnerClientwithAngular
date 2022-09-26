@@ -15,7 +15,10 @@ export class OwnerRepositoryService {
    */
   public GetOwners = (route: string) => {
     return this.http.get<Owner[]>(this.createCompleteRoute(route,this.environmenUrl.urlAddress));
-  } 
+  }
+  public getOwner = (route: string) =>{
+    return this.http.get<Owner>(this.createCompleteRoute(route,this.environmenUrl.urlAddress));
+  }
   public createOwner = (route: string,owner: Owner) => {
     return this.http.post<Owner>(this.createCompleteRoute(route,this.environmenUrl.urlAddress),
       owner,this.generateHeaders());
