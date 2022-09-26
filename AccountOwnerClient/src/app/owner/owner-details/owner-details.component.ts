@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from 'src/app/shared/services/error-handler.service';
 import { OwnerRepositoryService } from 'src/app/shared/services/owner-repository.service';
+import { Account } from 'src/app/_interfaces/account.model';
 import { Owner } from 'src/app/_interfaces/owner.model';
 
 @Component({
@@ -34,5 +35,8 @@ export class OwnerDetailsComponent implements OnInit {
         }
       })
   }
+
+  printToConsole = (param: Account) => 
+  console.log("Account parameter from the child componentAccount parameter from the child component",param);
 
 }
