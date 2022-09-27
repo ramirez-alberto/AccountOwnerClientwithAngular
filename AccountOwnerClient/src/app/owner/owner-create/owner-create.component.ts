@@ -28,8 +28,19 @@ export class OwnerCreateComponent implements OnInit {
     });
   }
 
-  validateControl = (value:string) => { return true;}
-  hasError = (property: string, validation : string):boolean => {return true;}
+  validateControl = (controlName: string) => {
+    if (this.ownerForm.get(controlName).invalid && this.ownerForm.get(controlName).touched )
+     return true;
+
+    return false;
+    }
+
+  hasError = (controlName: string, errorName: string):boolean => {
+    if (this.ownerForm.get(controlName).hasError(errorName))
+      return true;
+    
+    return false;
+  }
   redirectToOwnerList = () => {}
   createOwner = (owner : OwnerForCreation) => {}
 }
