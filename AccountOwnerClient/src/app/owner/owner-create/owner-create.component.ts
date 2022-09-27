@@ -6,6 +6,9 @@ import { OwnerRepositoryService } from 'src/app/shared/services/owner-repository
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from 'src/app/shared/services/error-handler.service';
 import { DatePipe } from '@angular/common';
+import { Owner } from 'src/app/_interfaces/owner.model';
+import { SuccessModalComponent } from 'src/app/shared/modals/success-modal/success-modal.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-owner-create',
@@ -41,6 +44,43 @@ export class OwnerCreateComponent implements OnInit {
     
     return false;
   }
+
+  createOwner = (ownerFormValue) => {
+    if(this.ownerForm.valid)
+      this.executeOwnerCreation(ownerFormValue);
+  }
+  private executeOwnerCreation = (ownerFormValue) => {
+    const owner: OwnerForCreation = {
+      name: ownerFormValue.name,
+      dateOfBirth: this.datePipe.transform(ownerFormValue.dateOfBirth, 'yyyy-MM-dd'),
+      address: ownerFormValue.address
+    };
+    const apiUrl = 'api/owner';
+    this.repository.createOwner(apiUrl,owner)
+      .subscribe({
+        next: (own: Owner) => {
+          const config: ModalOptions = {
+            initialState: {
+              modalHeaderText : 'Success Message',
+              modalBodyText : `Owner: ${owner.name} created successfully`,
+              okButtonText: 'OK'
+            }
+          };
+
+          this.bsModalRef = this.modal.show(SuccessModalComponent, config);
+          //subscribe to the redirectOnOk event that we emit from the 
+          //    SucessModalComponent once we click the Ok button.
+          this.bsModalRef.content.redirectOnOk.subscribe(_ => this.redirectToOwnerList());
+
+        },
+        error: (error: HttpErrorResponse) => { 
+          this.errorHandler.handleError(error);
+          this.errorMessage = this.errorHandler.errorMessage;
+        }
+      });
+  }
+
   redirectToOwnerList = () => {}
-  createOwner = (owner : OwnerForCreation) => {}
+
+
 }
