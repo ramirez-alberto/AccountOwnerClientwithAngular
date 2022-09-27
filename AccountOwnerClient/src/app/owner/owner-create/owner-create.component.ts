@@ -80,7 +80,9 @@ export class OwnerCreateComponent implements OnInit {
       });
   }
 
-  redirectToOwnerList = () => {}
+  redirectToOwnerList = () => {
+    this.router.navigate(['/owner/list']);
+  }
 
 
 }
