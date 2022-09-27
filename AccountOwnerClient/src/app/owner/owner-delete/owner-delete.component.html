@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="card card-body bg-light mb-2 mt-2">
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Owner name:</strong>
+            </div>
+            <div class="col-md-3">
+                {{owner?.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Date of birth:</strong>
+            </div>
+            <div class="col-md-3">
+                {{owner?.dateOfBirth | date: 'dd/MM/yyyy'}}
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="mb-3 row">
+        <div class="offset-5 col-md-1">
+            <button type="submit" class="btn btn-info" (click)="deleteOwner()">Delete</button>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-danger" (click)="redirectToOwnerList()">Cancel</button>
+        </div>
+    </div>
+
+</div>
