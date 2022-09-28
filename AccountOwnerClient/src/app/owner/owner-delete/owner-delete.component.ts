@@ -37,7 +37,7 @@ export class OwnerDeleteComponent implements OnInit {
   }
 
   deleteOwner = () => {
-    const apiUrl = `api/owner/delete/${this.owner.id}`;
+    const apiUrl = `api/owner/${this.owner.id}`;
     this.repository.deleteOwner(apiUrl)
     .subscribe({
       next: (_) => {
